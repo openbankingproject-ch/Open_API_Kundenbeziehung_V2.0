@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: openapi-kundenbeziehung
+
+openapi:
+  auth-server:
+    issuer: https://api.openapi.local
+  mtls:
+    enabled: true
+    cert-header: X-SSL-CERT
+    verify-header: X-SSL-VERIFY
+    verify-success-value: SUCCESS
+    require-client-cert: true
+    trusted-proxies:
+      - 127.0.0.1/32
+      - ::1/128
+      - 172.16.0.0/12
+      - 10.0.0.0/8
+      - 192.168.0.0/16
+
+logging:
+  level:
+    ch.openapi: INFO
+    ch.openapi.api.config.mtls: DEBUG
