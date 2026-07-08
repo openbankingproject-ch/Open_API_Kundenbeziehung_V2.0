@@ -3,3 +3,12 @@ api/.mvn
 api/.classpath
 api/.project
 api/target
+
+infra/certs/*.key
+infra/certs/*.crt
+infra/certs/*.csr
+infra/certs/*.pem
+infra/certs/*.srl
+
+api/logs/
+.claude/

@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: openapi-api
+    expose:
+      - "8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      OPENAPI_TRUSTED_PROXIES: 172.16.0.0/12,10.0.0.0/8,192.168.0.0/16
+    networks:
+      - openapi-net
+
+  nginx:
+    build:
+      context: ./infra/nginx
+      dockerfile: Dockerfile
+    container_name: openapi-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infra/certs:/etc/nginx/certs:ro
+    depends_on:
+      - api
+    networks:
+      - openapi-net
+
+networks:
+  openapi-net:
+    driver: bridge
